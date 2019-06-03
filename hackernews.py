@@ -36,4 +36,4 @@ modify = {
 }
 
 # regex substitutions
-replace = {}
+substitute = {}

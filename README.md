@@ -15,6 +15,7 @@ Your ELinks needs to be compiled with Python scripting support. To check, see `e
 ```python
     import soupmonkey
 
+    @soupmonkey.inject
     def pre_format_html_hook(url, html):
-        return soupmonkey.infect(url, html)
+        return html
 ```

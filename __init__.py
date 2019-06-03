@@ -9,23 +9,20 @@ for module in os.listdir(os.path.dirname(__file__)):
     modules.append(__import__(module[:-3], locals(), globals()))
 del module
 
-def _modifier(url, html):
-    soup = bs4.BeautifulSoup(html, 'html.parser')
+def _substitute(url, html):
+    target = html
     for module in modules:
-        for pattern in filter(lambda pattern: pattern in url, module.modify):
-            for selector in module.modify[pattern]:
-                [selector[1](e, soup) for e in soup.select(selector[0])]
-    return str(soup)
+        for p in filter(lambda pattern: pattern in url, module.substitute):
+            for substitute in module.substitute[p]:
+                target = re.sub(substitute[0], substitute[1], target)
+    return target
 
-def _replacer(url, html):
-    new = html
-    for module in modules:
-        for pattern in filter(lambda pattern: pattern in url, module.replace):
-            for replacement in module.replace[pattern]:
-                new = re.sub(replacement[0], replacement[1], new)
-    return new
-
-def infect(url, html):
-    html = _modifier(url, html)
-    html = _replacer(url, html)
-    return html
+def inject(f):
+    def _modify(url, html):
+        soup = bs4.BeautifulSoup(_substitute(url, html), 'html.parser')
+        for module in modules:
+            for p in filter(lambda pattern: pattern in url, module.modify):
+                for selector in module.modify[p]:
+                    [selector[1](e, soup) for e in soup.select(selector[0])]
+        return f(url, str(soup))
+    return _modify
