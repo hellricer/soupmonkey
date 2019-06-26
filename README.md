@@ -1,6 +1,6 @@
 # soupmonkey
 
-Userscript manager for ELinks powered by BeautifulSoup library.
+Userscript manager (and collection) for ELinks powered by BeautifulSoup library.
 
 ## Prerequisites
 
