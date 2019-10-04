@@ -18,8 +18,8 @@ def hackernews_votelink(e, soup):
         e.parent.insert(0, e)
 
 def hackernews_header(e, soup):
-    e['border']=1
-    e['frame']='hsides'
+    e['border'] = 1
+    e['frame'] = 'box'
 
 modify = {
     'news.ycombinator.com' : [
@@ -34,6 +34,3 @@ modify = {
         ('.votelinks', hackernews_votelink),
     ],
 }
-
-# regex substitutions
-substitute = {}

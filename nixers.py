@@ -16,5 +16,3 @@ modify = {
         ('table.tborder', border),
     ],
 }
-
-substitute = {}
