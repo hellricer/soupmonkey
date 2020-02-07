@@ -15,7 +15,7 @@ def _substitute(url, html):
         try:
             for p in filter(lambda pattern: re.search(pattern, url), module.substitute):
                 for substitute in module.substitute[p]:
-                    target = re.sub(substitute[0], substitute[1], target)
+                    target = re.sub(substitute[0], substitute[1], target, flags=(re.DOTALL + re.I))
         except AttributeError:
             pass
     return target
