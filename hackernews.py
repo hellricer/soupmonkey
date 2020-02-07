@@ -6,7 +6,7 @@ def hackernews_padding(e, soup):
     e['rules'] = 'cols'
     for x in e.select('tr td.ind'):
         level = int(x.img['width']) / 40
-        for y in range(level):
+        for y in range(int(level)):
             td = soup.new_tag('td')
             x.parent.insert(1, td)
         x.decompose()
