@@ -1,12 +1,13 @@
 import os
 import re
 import bs4
+from importlib import import_module
 
 modules = []
 for module in os.listdir(os.path.dirname(__file__)):
     if module == '__init__.py' or module[-3:] != '.py':
         continue
-    modules.append(__import__(module[:-3], locals(), globals()))
+    modules.append(import_module('.' + module[:-3], package = 'soupmonkey'))
     del module
 
 def _substitute(url, html):
